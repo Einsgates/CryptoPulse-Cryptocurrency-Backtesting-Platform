@@ -1,0 +1,8 @@
+[codespell]
+builtin = clear,informal,names,rare
+check-filenames =
+#count =
+enable-colors =
+#ignore-words-list= 
+skip = .git
+#summary =

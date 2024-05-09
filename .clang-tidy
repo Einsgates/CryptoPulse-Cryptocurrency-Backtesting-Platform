@@ -1,0 +1,269 @@
+---
+# Configure clang-tidy for this project.
+
+# Here is an explanation for why some of the checks are disabled:
+#
+#  -bugprone-easily-swappable-parameters: this check is TEMPORARY disabled.
+#
+#  -bugprone-reserved-identifier: conflicts with our code conventions.
+#
+#  -cppcoreguidelines-avoid-magic-numbers
+#  -readability-magic-numbers: too many false positives in tests.
+#
+#  -google-build-namespaces: we think this feature is an important part of our
+#      code base.
+#
+#  -google-runtime-references: conflicts with our code conventions.
+#
+#  -modernize-concat-nested-namespaces: clang-tidy recommends to concat namespaces,
+#      we think the code is less readable in this form.
+#
+#  -modernize-use-default-member-init: clang-tidy recommends to concat namespaces,
+#      we think the code is less readable in this form.
+#
+#  -modernize-use-nodiscard: too many false positives, as we use [[nodiscard]]
+#      mostly in API headers.
+#
+#  -modernize-use-trailing-return-type: clang-tidy recommends using
+#      `auto Foo() -> std::string { return ...; }`, we think the code is less
+#      readable in this form.
+#
+#  -readability-identifier-length: too many errors we don't care about.
+#
+#  -readability-redundant-access-specifiers: conflicts with our code conventions.
+#
+
+# Clang-Tidy use POSIX ERE. More can be found here:
+#   - https://stackoverflow.com/questions/61001314
+#   - https://stackoverflow.com/questions/67165339
+
+Checks: >
+  -*,
+  boost-*,
+  bugprone-*,
+  cert-msc32-c,
+  cert-msc51-cpp,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  google-*,
+  hicpp-*,
+  llvm-namespace-comment,
+  misc-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-reserved-identifier,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -google-build-namespaces,
+  -google-runtime-references,
+  -modernize-concat-nested-namespaces,
+  -modernize-use-default-member-init,
+  -modernize-use-nodiscard,
+  -modernize-use-trailing-return-type,
+  -readability-identifier-length,
+  -readability-magic-numbers,
+  -readability-redundant-access-specifiers
+CheckOptions:
+  - key: bugprone-assert-side-effect.AssertMacros
+    value: 'assert,BPROTO_ASSERT,BPROTO_ASSERT_MSG'
+
+  - key: bugprone-suspicious-enum-usage.StrictMode
+    value: true
+
+  - key: cert-msc32-c.DisallowedSeedTypes
+    value: 'time_t,std::time_t'
+
+  - key: cert-msc51-cpp.DisallowedSeedTypes
+    value: 'time_t,std::time_t'
+
+  - key: cppcoreguidelines-macro-usage.AllowedRegexp
+    value: '^(BOOST_TEST_MODULE|MAGIC_ENUM_).*$'
+
+  - key: cppcoreguidelines-special-member-functions.AllowMissingMoveFunctionsWhenCopyIsDeleted
+    value: true
+  - key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+    value: true
+  - key: hicpp-special-member-functions.AllowSoleDefaultDtor
+    value: true
+  - key: hicpp-special-member-functions.AllowMissingMoveFunctionsWhenCopyIsDeleted
+    value: true
+
+  #- key: cppcoreguidelines-pro-type-member-init.IgnoreArrays
+  #  value: true
+
+  - key: hicpp-signed-bitwise.IgnorePositiveIntegerLiterals
+    value: true
+
+  - key: llvm-namespace-comment.ShortNamespaceLines
+    value: '10'
+  - key: llvm-namespace-comment.SpacesBeforeComments
+    value: '1'
+
+  - key: readability-function-size.ParameterThreshold
+    value: '10'
+
+  # All available options
+  # https://clang.llvm.org/extra/clang-tidy/checks/readability-identifier-naming.html#cmdoption-arg-constantcase
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.ClassPrefix
+    value: ''
+  - key: readability-identifier-naming.ClassSuffix
+    value: ''
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumPrefix
+    value: ''
+  - key: readability-identifier-naming.EnumSuffix
+    value: ''
+  - key: readability-identifier-naming.EnumConstantCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumConstantPrefix
+    value: ''
+  - key: readability-identifier-naming.EnumConstantSuffix
+    value: ''
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+  - key: readability-identifier-naming.FunctionIgnoredRegexp
+    value: '^(make_error_code|make_error_condition)$'
+  - key: readability-identifier-naming.FunctionPrefix
+    value: ''
+  - key: readability-identifier-naming.FunctionSuffix
+    value: ''
+  - key: readability-identifier-naming.GlobalVariableCase
+    value: camelBack
+  - key: readability-identifier-naming.GlobalVariableIgnoredRegexp
+    value: '^ms_[a-z]+[A-Z][a-zA-Z]+$'
+  - key: readability-identifier-naming.GlobalVariablePrefix
+    value: 'g_'
+  - key: readability-identifier-naming.GlobalVariableSuffix
+    value: ''
+  - key: readability-identifier-naming.IgnoreMainLikeFunctions
+    value: true
+  - key: readability-identifier-naming.LocalPointerCase
+    value: CamelCase
+  - key: readability-identifier-naming.LocalPointerPrefix
+    value: 'p'
+  - key: readability-identifier-naming.LocalPointerSuffix
+    value: ''
+  - key: readability-identifier-naming.LocalVariableCase
+    value: camelBack
+  - key: readability-identifier-naming.LocalVariablePrefix
+    value: ''
+  - key: readability-identifier-naming.LocalVariableSuffix
+    value: ''
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.MacroDefinitionIgnoredRegexp
+    value: '^(BOOST_TEST_MODULE|MAGIC_ENUM_.*|__BPROTO_[A-Z_]+__)$'
+  - key: readability-identifier-naming.MacroDefinitionPrefix
+    value: 'BPROTO_'
+  - key: readability-identifier-naming.MacroDefinitionSuffix
+    value: ''
+  - key: readability-identifier-naming.MemberCase
+    value: camelBack
+  - key: readability-identifier-naming.MemberPrefix
+    value: 'm_'
+  - key: readability-identifier-naming.MemberSuffix
+    value: ''
+  - key: readability-identifier-naming.MethodCase
+    value: camelBack
+  - key: readability-identifier-naming.MethodPrefix
+    value: ''
+  - key: readability-identifier-naming.MethodSuffix
+    value: ''
+  - key: readability-identifier-naming.NamespaceCase
+    value: CamelCase
+  - key: readability-identifier-naming.NamespaceIgnoredRegexp
+    value: '^(ak_toolkit|boost|std)$'
+  - key: readability-identifier-naming.NamespacePrefix
+    value: ''
+  - key: readability-identifier-naming.NamespaceSuffix
+    value: ''
+  - key: readability-identifier-naming.ParameterCase
+    value: camelBack
+  - key: readability-identifier-naming.ParameterPrefix
+    value: '_'
+  - key: readability-identifier-naming.ParameterSuffix
+    value: ''
+  - key: readability-identifier-naming.ParameterPackCase
+    value: camelBack
+  - key: readability-identifier-naming.ParameterPackPrefix
+    value: '_'
+  - key: readability-identifier-naming.ParameterPackSuffix
+    value: ''
+  - key: readability-identifier-naming.PointerParameterCase
+    value: CamelCase
+  - key: readability-identifier-naming.PointerParameterPrefix
+    value: '_p'
+  - key: readability-identifier-naming.PointerParameterSuffix
+    value: ''
+  - key: readability-identifier-naming.ScopedEnumConstantCase
+    value: CamelCase
+  - key: readability-identifier-naming.ScopedEnumConstantPrefix
+    value: ''
+  - key: readability-identifier-naming.ScopedEnumConstantSuffix
+    value: ''
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.StructPrefix
+    value: ''
+  - key: readability-identifier-naming.StructSuffix
+    value: ''
+  - key: readability-identifier-naming.TemplateParameterCase
+    value: CamelCase
+  - key: readability-identifier-naming.TemplateParameterPrefix
+    value: '_'
+  - key: readability-identifier-naming.TemplateParameterSuffix
+    value: 'T'
+  - key: readability-identifier-naming.TemplateTemplateParameterCase
+    value: CamelCase
+  - key: readability-identifier-naming.TemplateTemplateParameterPrefix
+    value: '_'
+  - key: readability-identifier-naming.TemplateTemplateParameterSuffix
+    value: 'T'
+  - key: readability-identifier-naming.TypeAliasCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypeAliasPrefix
+    value: ''
+  - key: readability-identifier-naming.TypeAliasSuffix
+    value: ''
+  - key: readability-identifier-naming.TypedefCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypedefPrefix
+    value: ''
+  - key: readability-identifier-naming.TypedefSuffix
+    value: ''
+  - key: readability-identifier-naming.TypeTemplateParameterCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypeTemplateParameterIgnoredRegexp
+    value: '_[A-Z]([0-9]+)?'
+  - key: readability-identifier-naming.TypeTemplateParameterPrefix
+    value: '_'
+  - key: readability-identifier-naming.TypeTemplateParameterSuffix
+    value: 'T'
+  - key: readability-identifier-naming.UnionCase
+    value: CamelCase
+  - key: readability-identifier-naming.UnionPrefix
+    value: ''
+  - key: readability-identifier-naming.UnionSuffix
+    value: ''
+  - key: readability-identifier-naming.ValueTemplateParameterCase
+    value: camelBack
+  - key: readability-identifier-naming.ValueTemplateParameterPrefix
+    value: '_'
+  - key: readability-identifier-naming.ValueTemplateParameterSuffix
+    value: ''
+  - key: readability-identifier-naming.VariableCase
+    value: camelBack
+  - key: readability-identifier-naming.VariablePrefix
+    value: ''
+  - key: readability-identifier-naming.VariableSuffix
+    value: ''
+FormatStyle: none
+HeaderFilterRegex: '^project\/.*$'
+InheritParentConfig: false
+User:
+WarningsAsErrors: '*'

@@ -1,0 +1,17 @@
+diff --git a/clang/lib/Tooling/Inclusions/HeaderIncludes.cpp b/clang/lib/Tooling/Inclusions/HeaderIncludes.cpp
+index 15a2024c4..96b772d4b 100644
+--- a/clang/lib/Tooling/Inclusions/HeaderIncludes.cpp
++++ b/clang/lib/Tooling/Inclusions/HeaderIncludes.cpp
+@@ -243,6 +243,12 @@ bool IncludeCategoryManager::isMainHeader(StringRef IncludeName) const {
+   // headers may not.
+   StringRef HeaderStem = llvm::sys::path::stem(IncludeName);
+   StringRef FileStem = llvm::sys::path::stem(FileName); // foo.cu for foo.cu.cc
++  if (FileStem.startswith_insensitive("test_")) {
++      FileStem = FileStem.drop_front(std::strlen("test_"));
++      if (HeaderStem.endswith_insensitive("_impl")) {
++          HeaderStem = HeaderStem.drop_back(std::strlen("_impl"));
++      }
++  }
+   StringRef MatchingFileStem = matchingStem(FileName);  // foo for foo.cu.cc
+   // main-header examples:
+   //  1) foo.h => foo.cc

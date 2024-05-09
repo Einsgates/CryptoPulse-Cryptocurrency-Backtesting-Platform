@@ -1,0 +1,14 @@
+extends: default
+
+rules:
+  document-start: disable
+
+  indentation:
+    indent-sequences: consistent
+    level: warning
+    spaces: 2
+
+  line-length:
+    allow-non-breakable-inline-mappings: true
+    level: warning
+    max: 100

@@ -1,0 +1,29 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.yml]
+end_of_line = lf
+indent_size = 2
+
+[*.sh]
+end_of_line = lf
+
+binary_next_line   = true # like -bn
+function_next_line = true # like -fn
+keep_padding       = true # like -kp
+shell_variant      = bash # like -ln=bash
+space_redirects    = true # like -sr
+switch_case_indent = false # like -ci
+
+# Ignore the entire "3rd-party" directory.
+[3rd-party/**]
+ignore = true

@@ -1,0 +1,65 @@
+[project]
+name = "3ct-packages"
+version = "0.0.0"
+requires-python = ">=3.8"
+
+dependencies = [
+    # TODO(b110011): 'pyyaml' is required by 'conan' and 'yamllint', but there
+    #   is an issue occurred while resolving dependencies:
+    #     - https://github.com/yaml/pyyaml/issues/601
+    #   For time being let's put this here.
+    "pyyaml~=5.3.1",
+]
+
+[tool.setuptools]
+packages = []
+
+[project.optional-dependencies]
+conan = [
+    "conan==1.59.0",
+    # "conan==2.0.2",  # TODO(b110011): Replace when migration to Conan 2 is finished.
+    "cmake==3.27.0"
+]
+docs = [
+    # base
+    "furo==2022.9.29",
+    "sphinx==4.5.0",
+    # c++ extensions
+    "breathe==4.32.0",
+    "exhale==0.2.4",
+    # extensions
+    "sphinx-copybutton",
+    "sphinx-design",
+    "sphinx-prompt==1.5.0",  # NOTE(b110011): >=1.6.0 requires Sphinx<7.0.0,>=6.0.0
+    # resolving dependencies
+    "docutils==0.17.1",
+    "sphinxcontrib-applehelp==1.0.4",
+    "sphinxcontrib-devhelp==1.0.2",
+    "sphinxcontrib-htmlhelp==2.0.1",
+    "sphinxcontrib-serializinghtml==1.1.5",
+    "sphinxcontrib-qthelp==1.0.3",
+    "pygments==2.11.0",
+]
+linters = [
+    "black",                       # python
+    "codespell",                   # common
+    "cmakelang",                   # cmake
+    # "cppcheck_codequality",      # c++
+    # "cppcheck_junit",            # c++
+    "flake8",                      # python
+    "flake8-bandit",               # python
+    "flake8-builtins",             # python
+    "flake8-bugbear",              # python
+    "flake8-comprehensions",       # python
+    "gcovr",                       # c++
+    "guardonce",                   # c++
+    "isort",                       # python
+    "licenseheaders",              # common
+    "pep8-naming",                 # python
+    "rstcheck",                    # rst
+    "yamllint",                    # yaml
+]
+misc = [
+    "dateparser",
+    "requests",
+]

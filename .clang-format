@@ -1,0 +1,81 @@
+---
+BasedOnStyle: LLVM
+AccessModifierOffset: -4
+AlignAfterOpenBracket: BlockIndent
+AlignConsecutiveBitFields: true
+AlignEscapedNewlines: Left
+AlignOperands: AlignAfterOperator
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortLambdasOnASingleLine: Inline
+AlwaysBreakAfterReturnType: TopLevel
+AlwaysBreakBeforeMultilineStrings: true
+AlwaysBreakTemplateDeclarations: 'Yes'
+BinPackArguments: false
+BinPackParameters: false
+BraceWrapping:
+  AfterCaseLabel:       true
+  AfterClass:           true
+  AfterControlStatement: Always
+  AfterEnum:            true
+  AfterFunction:        true
+  AfterNamespace:       false
+  AfterObjCDeclaration: true
+  AfterStruct:          true
+  AfterUnion:           true
+  AfterExternBlock:     true
+  BeforeCatch:          true
+  BeforeElse:           true
+  BeforeLambdaBody:     true
+  BeforeWhile:          true
+  IndentBraces:         false
+  SplitEmptyFunction:   false
+  SplitEmptyRecord:     false
+  SplitEmptyNamespace:  false
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Custom
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
+ColumnLimit: 80
+CommentPragmas: '^ (NOLINT|NOLINTNEXTLINE)'
+EmptyLineAfterAccessModifier: Always
+EmptyLineBeforeAccessModifier: Always
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '^"fixtures/'
+    Priority:        1
+    CaseSensitive:   true
+  - Regex:           '^"ih/'
+    Priority:        3
+    CaseSensitive:   true
+  - Regex:           '^"src/'
+    Priority:        4
+    CaseSensitive:   true
+  - Regex:           '^"mocks/'
+    Priority:        5
+    CaseSensitive:   true
+  - Regex:           '^"3rd-party/'
+    Priority:        6
+    CaseSensitive:   true
+  - Regex:           '<[a-z_]+>' # C++ standard headers
+    Priority:        8
+  - Regex:           '<[0-9A-Za-z_\.\/]+>' # 3rd-party libraries
+    Priority:        7
+  - Regex:           '.*'
+    Priority:        2
+IncludeIsMainSourceRegex: '(_impl\.[ih]pp)$'
+IncludeIsMainRegex: '.*'
+IndentPPDirectives: BeforeHash
+IndentRequires: true
+IndentWidth: 4
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 2
+PackConstructorInitializers: Never
+PenaltyBreakAssignment: 10000
+PenaltyExcessCharacter: 25
+PenaltyReturnTypeOnItsOwnLine: 10000
+SpaceAfterTemplateKeyword: false
+TabWidth: 4
+...

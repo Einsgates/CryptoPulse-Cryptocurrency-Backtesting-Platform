@@ -1,0 +1,13 @@
+diff --git a/clang/lib/Format/FormatToken.cpp b/clang/lib/Format/FormatToken.cpp
+index d994ed048..c5871e360 100644
+--- a/clang/lib/Format/FormatToken.cpp
++++ b/clang/lib/Format/FormatToken.cpp
+@@ -92,7 +92,7 @@ bool FormatToken::isBlockIndentedInitRBrace(const FormatStyle &Style) const {
+
+ bool FormatToken::opensBlockOrBlockTypeList(const FormatStyle &Style) const {
+   // C# Does not indent object initialisers as continuations.
+-  if (is(tok::l_brace) && getBlockKind() == BK_BracedInit && Style.isCSharp())
++  if (is(tok::l_brace) && getBlockKind() == BK_BracedInit)
+     return true;
+   if (is(TT_TemplateString) && opensScope())
+     return true;
